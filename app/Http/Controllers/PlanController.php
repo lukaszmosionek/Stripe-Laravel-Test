@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Plan;
+use Laravel\Cashier\Exceptions\IncompletePayment;
 
 class PlanController extends Controller
 {
@@ -38,9 +39,19 @@ class PlanController extends Controller
     public function subscription(Request $request)
     {
         $plan = Plan::find($request->plan);
+        // $plan = Plan::where('slug', 'one-day-trial')->first();
 
-        $subscription = $request->user()->newSubscription($request->plan, $plan->stripe_plan)
-                        ->create($request->token);
+
+
+                        try {
+                            $subscription = $request->user()->newSubscription($request->plan, $plan->stripe_plan)->trialDays(1)
+                            ->create($request->token);
+                        } catch (IncompletePayment $exception) {
+                            return redirect()->route(
+                                'cashier.payment',
+                                [$exception->payment->id, 'redirect' => route('plans.index')]
+                            );
+                        }
 
         return view("subscription_success");
     }

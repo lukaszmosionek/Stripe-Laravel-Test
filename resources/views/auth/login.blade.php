@@ -70,7 +70,7 @@
                     <br>
                     <br>
 
-                    test@onet.pl | password
+                    <h4><b>Dane logowania:</b> test@onet.pl | password</h4>
                 </div>
             </div>
         </div>

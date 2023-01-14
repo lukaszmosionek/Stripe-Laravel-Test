@@ -40,7 +40,13 @@
                     </form>
 
                     <br><br><br>
-                    Testowe numery kart: <a href="https://stripe.com/docs/testing?testing-method=card-numbers#cards">https://stripe.com/docs/testing?testing-method=card-numbers#cards</a>
+                    <br>
+                    <br>
+                    <br>
+
+                    <h6><b>Testowe numery kart:</b> <a href="https://stripe.com/docs/testing?testing-method=card-numbers#cards">https://stripe.com/docs/testing?testing-method=card-numbers#cards</a></h6>
+                    <h7>karta z 3DS -> 4000002500003155</h7>
+
 
                 </div>
             </div>

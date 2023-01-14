@@ -29,6 +29,13 @@ class PlanSeeder extends Seeder
                 'stripe_plan' => 'price_1MPuBdKh1i2J84rh7dJL7Tqs',
                 'price' => 100,
                 'description' => 'Premium'
+            ],
+            [
+                'name' => 'One day trial',
+                'slug' => 'one-day-trial',
+                'stripe_plan' => 'price_1MQ6ZIKh1i2J84rhPvS0eo5h',
+                'price' => 1,
+                'description' => 'one-day-trial'
             ]
         ];
 
