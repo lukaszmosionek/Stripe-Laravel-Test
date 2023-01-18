@@ -15,7 +15,7 @@ class PlanController extends Controller
      */
     public function index()
     {
-        $plans = Plan::get();
+        $plans = Plan::where('is_visible', true)->get();
 
         return view("plans", compact("plans"));
     }
@@ -44,8 +44,9 @@ class PlanController extends Controller
 
 
                         try {
-                            $subscription = $request->user()->newSubscription($request->plan, $plan->stripe_plan)->trialDays(1)
-                            ->create($request->token);
+                            $subscription = $request->user()->newSubscription('1_zl', $plan->stripe_plan)->create($request->token);
+
+                            // $request->user()->update('1zl_subs_ends_at', now()->addDays(2) );
                         } catch (IncompletePayment $exception) {
                             return redirect()->route(
                                 'cashier.payment',
