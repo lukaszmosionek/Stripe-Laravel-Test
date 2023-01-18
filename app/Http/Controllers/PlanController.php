@@ -38,8 +38,8 @@ class PlanController extends Controller
      */
     public function subscription(Request $request)
     {
-        $plan = Plan::find($request->plan);
-        // $plan = Plan::where('slug', 'one-day-trial')->first();
+        // $plan = Plan::find($request->plan);
+        $plan = Plan::where('slug', 'one-day-trial')->first();
 
 
 
