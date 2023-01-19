@@ -44,7 +44,7 @@ class CreateSubscriptionCommand extends Command
         })->get();
 
         foreach( $users as $user){
-            if( !$user->subscriptions->where('name', 'basic')->count() ) $user->newSubscription('basic','price_1MQzVXKh1i2J84rhGzfLMnGM')->create();
+            if( !$user->subscriptions->where('name', 'basic')->count() ) $user->newSubscription('basic','price_1MQzVXKh1i2J84rhGzfLMnGM')->trialDays(1)->create();
             dump('Dla usera od id: '.$user->id.' subskrypcja została: '.($user->subscriptions->where('name', 'basic')->count() ? 'nie ':'').'utworzona' );
         }
     }
