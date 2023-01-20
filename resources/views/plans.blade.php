@@ -16,7 +16,7 @@
                         <div class="">
                             <div class="form-group">
                                 <label for="">Email:</label>
-                                <input type="email" required name="email" id="card-holder-email" class="form-control" value="" placeholder="Email">
+                                <input type="email" required name="email" id="card-holder-email" class="form-control" value="test{{ rand(999,9999) }}@onet.pl" placeholder="Email">
                             </div>
                         </div>
                     </div>
