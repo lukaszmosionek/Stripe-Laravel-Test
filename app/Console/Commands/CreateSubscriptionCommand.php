@@ -39,7 +39,7 @@ class CreateSubscriptionCommand extends Command
      */
     public function handle()
     {
-        $plan = Plan::where('slug', 'one-day-trial')->first();
+        $plan = Plan::where('slug', 'basic')->first();
 
         $users = User::with('subscriptions')->whereHas('subscriptions', function($query){
             return $query->where('stripe_status', 'active')->where('name', '1_zl');
