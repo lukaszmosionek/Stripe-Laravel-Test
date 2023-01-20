@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Plan;
 use App\Models\User;
 use Illuminate\Console\Command;
 
@@ -38,13 +39,14 @@ class CreateSubscriptionCommand extends Command
      */
     public function handle()
     {
+        $plan = Plan::where('slug', 'one-day-trial')->first();
 
         $users = User::with('subscriptions')->whereHas('subscriptions', function($query){
             return $query->where('stripe_status', 'active')->where('name', '1_zl');
         })->get();
 
         foreach( $users as $user){
-            if( !$user->subscriptions->where('name', 'basic')->count() ) $user->newSubscription('basic','price_1MQzVXKh1i2J84rhGzfLMnGM')->trialDays(1)->create();
+            if( !$user->subscriptions->where('name', 'basic')->count() ) $user->newSubscription( $plan->slug, $plan->stripe_plan )->trialDays(1)->create();
             dump('Dla usera od id: '.$user->id.' subskrypcja została: '.($user->subscriptions->where('name', 'basic')->count() ? 'nie ':'').'utworzona' );
         }
     }
