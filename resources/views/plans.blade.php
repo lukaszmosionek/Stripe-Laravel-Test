@@ -7,7 +7,20 @@
             <div class="card">
                 <div class="card-header">Select Plane:</div>
 
+                <form action="{{ route('plans.show') }}" method="GET">
+
                 <div class="card-body">
+
+                    @guest
+                    <div class="row mb-5">
+                        <div class="">
+                            <div class="form-group">
+                                <label for="">Email:</label>
+                                <input type="email" required name="email" id="card-holder-email" class="form-control" value="" placeholder="Email">
+                            </div>
+                        </div>
+                    </div>
+                    @endguest
 
                     <div class="row">
                         @foreach($plans as $plan)
@@ -20,7 +33,8 @@
                                     <h5 class="card-title">{{ $plan->name }}</h5>
                                     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the cards content.</p>
 
-                                    <a href="{{ route('plans.show', $plan->slug) }}" class="btn btn-primary pull-right">Choose</a>
+                                    <input type="hidden" value="{{ $plan->slug }}" name="plan" />
+                                    <input type="submit" value="Choose" class="btn btn-primary pull-right">
 
                                   </div>
                                 </div>
@@ -30,6 +44,7 @@
                     </div>
 
                 </div>
+            </form>
             </div>
         </div>
     </div>

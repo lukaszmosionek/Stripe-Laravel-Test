@@ -56,7 +56,7 @@
 
 <script src="https://js.stripe.com/v3/"></script>
 <script>
-    const stripe = Stripe('{{ env('STRIPE_KEY') }}')
+    const stripe = Stripe('{{ config("services.stripe.key") }}')
 
     const elements = stripe.elements()
     const cardElement = elements.create('card')
@@ -70,7 +70,7 @@
     form.addEventListener('submit', async (e)  => {
         e.preventDefault()
 
-        //cardBtn.disabled = true
+        $('#card-button').attr('disabled', true);//.append('...');
         const { setupIntent, error } = await stripe.confirmCardSetup(
             cardBtn.dataset.secret, {
                 payment_method: {
@@ -85,6 +85,8 @@
         if(error) {
             alert( error.message );
             console.log( 'error.message: ',error.message );
+
+            $('#card-button').attr('disabled', false);
 
             document.getElementById('card-button').disable = false;
 

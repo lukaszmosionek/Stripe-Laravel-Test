@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Plan;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Laravel\Cashier\Exceptions\IncompletePayment;
 
 class PlanController extends Controller
@@ -25,8 +27,20 @@ class PlanController extends Controller
      *
      * @return response()
      */
-    public function show(Plan $plan, Request $request)
+    public function show(Request $request)
     {
+        $plan = Plan::where('slug', request('plan') )->first();
+
+        if(! auth()->check() ){
+                $user = User::create([
+                    'name' => $request->email,
+                    'email' => $request->email,
+                    'password' => Hash::make('password'),
+                ]);
+
+                auth()->login($user);
+        }
+
         $intent = auth()->user()->createSetupIntent();
 
         return view("subscription", compact("plan", "intent"));

@@ -23,11 +23,11 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::middleware("auth")->group(function () {
+// Route::middleware("auth")->group(function () {
     Route::get('plans', [PlanController::class, 'index'])->name("plans.index");;
-    Route::get('plans/{plan}', [PlanController::class, 'show'])->name("plans.show");
+    Route::get('plans/show', [PlanController::class, 'show'])->name("plans.show");
     Route::post('subscription', [PlanController::class, 'subscription'])->name("subscription.create");
-});
+// });
 
 Auth::routes();
 
