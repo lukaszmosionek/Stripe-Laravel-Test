@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Models\Plan;
 use App\Models\User;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
 
 class CreateSubscriptionCommand extends Command
 {
@@ -46,7 +47,9 @@ class CreateSubscriptionCommand extends Command
         })->get();
 
         foreach( $users as $user){
-            if( !$user->subscriptions->where('name', 'basic')->count() ) $user->newSubscription( $plan->slug, $plan->stripe_plan )->trialDays(1)->create();
+            if( !$user->subscriptions->where('name', 'basic')->count() ) $user->newSubscription( $plan->slug, $plan->stripe_plan )->create();
+
+            Log::info('Dla usera od id: '.$user->id.' subskrypcja została: '.($user->subscriptions->where('name', 'basic')->count() ? 'nie ':'').'utworzona' );
             dump('Dla usera od id: '.$user->id.' subskrypcja została: '.($user->subscriptions->where('name', 'basic')->count() ? 'nie ':'').'utworzona' );
         }
     }
